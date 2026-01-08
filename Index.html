@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laços e Fitas</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosa: #ffe5ec;
+  --amarelo: #fff7d6;
+  --texto: #5a4a4a;
+  --botao: #ffb3c6;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, var(--rosa), var(--amarelo));
+  color: var(--texto);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: white;
+  padding: 18px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 22px;
+  padding: 22px;
+}
+
+.produto {
+  background: white;
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.produto:hover {
+  transform: scale(1.05);
+}
+
+.produto img {
+  width: 100%;
+  border-radius: 14px;
+  height: 135px;
+  object-fit: cover;
+}
+
+button {
+  background: var(--botao);
+  border: none;
+  padding: 11px;
+  width: 100%;
+  border-radius: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+#carrinho {
+  background: white;
+  margin: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+#zap {
+  background: #25d366;
+  color: white;
+  font-weight: 600;
+  padding: 13px;
+  border-radius: 14px;
+  display: none;
+  text-decoration: none;
+  margin-top: 14px;
+  font-size: 16px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>🎀 Laços e Fitas</header>
+
+<section class="produtos">
+  <div class="produto">
+    <img src="https://via.placeholder.com/200x140" alt="Laço Rosa">
+    <h3>Laço Rosa</h3>
+    <p>R$ 15,90</p>
+    <button onclick="addCarrinho('Laço Rosa', 15.90)">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="https://via.placeholder.com/200x140" alt="Tiara Amarela">
+    <h3>Tiara Amarela</h3>
+    <p>R$ 18,50</p>
+    <button onclick="addCarrinho('Tiara Amarela', 18.50)">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="https://via.placeholder.com/200x140" alt="Kit de Fitas">
+    <h3>Kit de Fitas</h3>
+    <p>R$ 25,00</p>
+    <button onclick="addCarrinho('Kit de Fitas', 25.00)">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="https://via.placeholder.com/200x140" alt="Presilha Floral">
+    <h3>Presilha Floral</h3>
+    <p>R$ 12,90</p>
+    <button onclick="addCarrinho('Presilha Floral', 12.90)">Comprar</button>
+  </div>
+</section>
+
+<section id="carrinho">
+  <h3>🛍 Carrinho</h3>
+  <ul id="lista"></ul>
+  <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
+  <a id="zap" href="#" target="_blank">Finalizar compra pelo WhatsApp</a>
+</section>
+
+<script>
+let total = 0;
+let pedido = "";
+
+function addCarrinho(nome, preco) {
+  total += preco;
+  pedido += `\n• ${nome} - R$ ${preco.toFixed(2)}`;
+
+  const item = document.createElement("li");
+  item.textContent = `${nome} - R$ ${preco.toFixed(2)}`;
+  document.getElementById("lista").appendChild(item);
+  document.getElementById("total").textContent = total.toFixed(2);
+
+  const zap = document.getElementById("zap");
+  zap.style.display = "block";
+  zap.href = `https://api.whatsapp.com/send?text=Oi! Quero finalizar a compra dos acessórios:${encodeURIComponent(pedido + "\n\nTotal: R$ " + total.toFixed(2))}`;
+}
+</script>
+
+</body>
+</html>
